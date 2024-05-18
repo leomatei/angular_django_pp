@@ -1,0 +1,9 @@
+# fe
+/frontend/.angular/
+/frontend/.vscode/
+/frontend/node_modules/
+/frontend/package-lock.json
+
+
+# be 
+# still dont have any to put in gitignore
