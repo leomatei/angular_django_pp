@@ -1,6 +1,6 @@
 # fe
-/frontend/.angular/
-/frontend/.vscode/
+/frontend/.angular
+/frontend/.vscode
 /frontend/node_modules/
 /frontend/package-lock.json
 
