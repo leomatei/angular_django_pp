@@ -1,0 +1,13 @@
+# get api
+
+GET http://127.0.0.1:8000/api/items/
+
+# post api
+
+# POST http://127.0.0.1:8000/api/items/
+# Content-Type: application/json
+
+# {
+#     "name": "item created using post api #1",
+#     "description": "valuitem created using post api #2"
+# }
