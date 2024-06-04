@@ -8,3 +8,4 @@
 /backend/venv
 /backend/db.sqlite3
 /backend/test.rest
+/backend\server\__pycache__/
