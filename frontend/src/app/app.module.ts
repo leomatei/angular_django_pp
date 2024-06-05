@@ -8,9 +8,10 @@ import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './services/auth.service';
 import { AuthInterceptor } from './auth.interceptor';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
+  declarations: [AppComponent, LoginComponent, DashboardComponent],
   imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
   providers: [
     AuthService,
