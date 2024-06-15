@@ -16,6 +16,11 @@ App to create complaints, assign complaints. Project built using angular and dja
 
 Create virtual environment ( https://www.freecodecamp.org/news/how-to-setup-virtual-environments-in-python/).
 
+use
+`python manage.py makemigrations`  
+`python manage.py migrate`  
+to make migrations(you can use it after creating anew model)
+
 Commands to start:  
 ` venv\Scripts\activate (replace venv with your virtual env name)`  
 `python manage.py runserver`

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Role, UserProfile
+from .models import Role, UserProfile, Complaint
 
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -33,3 +33,10 @@ class UserSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         representation['role'] = instance.userprofile.role.id if instance.userprofile else None
         return representation
+    
+class ComplaintSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Complaint
+        fields = '__all__'
+
+    
