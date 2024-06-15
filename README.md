@@ -16,13 +16,13 @@ App to create complaints, assign complaints. Project built using angular and dja
 
 Create virtual environment ( https://www.freecodecamp.org/news/how-to-setup-virtual-environments-in-python/).
 
-Commands to start:
-` venv\Scripts\activate (replace venv with your virtual env name)`
+Commands to start:  
+` venv\Scripts\activate (replace venv with your virtual env name)`  
 `python manage.py runserver`
 
 #### Prerequisites
 
-install django, django rest framework, rest farmework simple jwt and cors for django
+install python3.12, django, django rest framework, rest farmework simple jwt and cors for django
 
 ### FrontEnd
 
