@@ -1,0 +1,29 @@
+<div class="complaint-form-container">
+  <form (ngSubmit)="onSubmit()">
+    <div>
+      <label for="author">author:</label>
+      <input
+        type="text"
+        id="author"
+        [(ngModel)]="author"
+        name="author"
+        required
+      />
+    </div>
+    <div>
+      <label for="title">title:</label>
+      <input type="text" id="title" [(ngModel)]="title" name="title" required />
+    </div>
+    <div>
+      <label for="description">description:</label>
+      <input
+        type="text"
+        id="description"
+        [(ngModel)]="description"
+        name="description"
+        required
+      />
+    </div>
+    <button type="submit">submit</button>
+  </form>
+</div>
