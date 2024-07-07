@@ -20,4 +20,11 @@ export class ComplaintsService {
         })
       );
   }
+  getComplaints(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/complaints`).pipe(
+      tap((res) => {
+        console.log(res);
+      })
+    );
+  }
 }

@@ -1,0 +1,19 @@
+<div class="generic-form-container">
+  <h1 class="generic-form-container__title">File a complaint</h1>
+  <form class="generic-form-container__form" (ngSubmit)="onSubmit()">
+    <div
+      *ngFor="let field of fields"
+      class="generic-form-container__form__field"
+    >
+      <label [for]="field.name">{{ field.label }}:</label>
+      <input
+        [type]="field.type"
+        [id]="field.name"
+        [(ngModel)]="field.value"
+        [name]="field.name"
+        required
+      />
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</div>

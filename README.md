@@ -35,4 +35,12 @@ Run `npm install` to install depencies then use `ng serve` to run client.
 
 #### Prerequisites
 
-Use Node 16, you might need nvm
+Use Node 16 or 18, you might need nvm
+
+if you get this error  
+ opensslErrorStack: [ 'error:03000086:digital envelope routines::initialization error' ],
+library: 'digital envelope routines',
+reason: 'unsupported',
+code: 'ERR_OSSL_EVP_UNSUPPORTED'
+
+use node 18 and run `$env:NODE_OPTIONS="--openssl-legacy-provider"`, then retry `ng serve`

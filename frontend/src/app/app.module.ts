@@ -11,10 +11,24 @@ import { AuthInterceptor } from './auth.interceptor';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { ComplaintFormComponent } from './complaint-form/complaint-form.component';
+// import { GenericFormComponent } from './generic-form/generic-form.component';
+import { SharedModule } from './shared.module';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DashboardComponent, HomeComponent, ComplaintFormComponent],
-  imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    DashboardComponent,
+    HomeComponent,
+    ComplaintFormComponent,
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    SharedModule,
+  ],
   providers: [
     AuthService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
