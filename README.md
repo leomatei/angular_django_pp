@@ -12,6 +12,12 @@ App to create complaints, assign complaints. Project built using angular and dja
 
 ## Installation
 
+## NEW Docker
+
+Run `docker-compose up --build` for the first time, then use `docker-compose up`
+
+## OLD without Docker
+
 ### BackEnd
 
 Create virtual environment ( https://www.freecodecamp.org/news/how-to-setup-virtual-environments-in-python/).
