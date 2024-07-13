@@ -33,4 +33,4 @@ RUN npm run build --prod
 EXPOSE 4200
 
 # Run ng serve when the container launches
-CMD ["ng", "serve", "--host", "0.0.0.0", "--disable-host-check", "--watch"]
+CMD ["npm", "start"]

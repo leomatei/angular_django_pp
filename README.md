@@ -14,7 +14,9 @@ App to create complaints, assign complaints. Project built using angular and dja
 
 ## NEW Docker
 
-Run `docker-compose up --build` for the first time, then use `docker-compose up`
+Run `docker-compose up --build` for the first time  
+Run `docker-compose up` to start the app  
+Run `docker-compose watch` to start the app and detect changes and sync your local files to containers files
 
 ## OLD without Docker
 

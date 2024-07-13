@@ -6,10 +6,14 @@ services:
       context: ./frontend
     ports:
       - '4200:4200'
-    volumes:
-      - ./frontend:/app
     depends_on:
       - backend
+    command: npm start
+    develop:
+      watch:
+        - path: ./frontend/src
+          action: sync
+          target: /app/src
 
   backend:
     build:
@@ -20,10 +24,16 @@ services:
       - '8000:8000'
     environment:
       - PYTHONUNBUFFERED=1
-    volumes:
-      - ./backend:/app
     depends_on:
       - db
+    develop:
+      watch:
+        - path: ./backend/server
+          action: sync
+          target: /app/server
+        - path: ./backend/account
+          action: sync
+          target: /app/account
 
   db:
     image: postgres:13
