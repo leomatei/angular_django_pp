@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 
@@ -7,14 +7,21 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
-  username: string = '';
-  password: string = '';
+export class LoginComponent implements OnInit {
+  loginFields: { name: string; label: string; type: string; value: any }[] = [];
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  onSubmit(): void {
-    this.authService.login(this.username, this.password).subscribe(
+  ngOnInit(): void {
+    this.loginFields = [
+      { name: 'username', label: 'Username', type: 'text', value: '' },
+      { name: 'password', label: 'Password', type: 'password', value: '' },
+    ];
+  }
+
+  onFormSubmit(formData: any): void {
+    const { username, password } = formData;
+    this.authService.login(username, password).subscribe(
       () => {
         this.router.navigate(['/dashboard']);
       },

@@ -14,6 +14,7 @@ interface FormField {
 })
 export class GenericFormComponent {
   @Input() fields: FormField[] = [];
+  @Input() title: string = '';
   @Output() formSubmit = new EventEmitter<any>();
 
   onSubmit(): void {

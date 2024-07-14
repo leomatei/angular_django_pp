@@ -1,0 +1,19 @@
+# TODO List
+
+## Frontend
+- [ ] Sign Up component: make password matching live, not after pressing submit  
+- [ ] Implement signup validation for email
+- [ ] create separate component for navbar
+- [ ] create sign up method in service
+- [ ] as a super admin you should be able to change the role of an user
+- [ ] as a regular user you are not able to see the user tables and all complaints
+- [ ] as a regular user you are able to see only your complaints
+- [ ] create a generic table component
+- [ ] create a roles table
+- [ ] create a role form
+
+## Backend
+- [ ] pormissions on api routes
+
+## DevOps
+- [ ] make errors more devf friendly on docker

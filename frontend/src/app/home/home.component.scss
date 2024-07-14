@@ -3,6 +3,9 @@
   justify-content: space-between;
   background-color: #333;
   padding: 1rem;
+  div {
+    display: flex;
+  }
 }
 
 .navbar a {

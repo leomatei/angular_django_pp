@@ -1,5 +1,5 @@
 <div class="generic-form-container">
-  <h1 class="generic-form-container__title">File a complaint</h1>
+  <h1 class="generic-form-container__title">{{ title }}</h1>
   <form class="generic-form-container__form" (ngSubmit)="onSubmit()">
     <div
       *ngFor="let field of fields"

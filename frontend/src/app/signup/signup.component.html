@@ -1,0 +1,10 @@
+<div class="signup-container">
+  <app-generic-form
+    [title]="'Sign Up'"
+    [fields]="signupFields"
+    (formSubmit)="onFormSubmit($event)"
+  ></app-generic-form>
+  <div *ngIf="passwordMismatchError" class="error-message">
+    {{ passwordMismatchError }}
+  </div>
+</div>
