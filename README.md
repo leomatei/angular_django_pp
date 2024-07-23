@@ -18,6 +18,8 @@ Run `docker-compose up --build` for the first time
 Run `docker-compose up` to start the app  
 Run `docker-compose watch` to start the app and detect changes and sync your local files to containers files
 
+Run `docker-compose exec backend python manage.py seed` to seed the db while docker is running.
+
 ## OLD without Docker
 
 ### BackEnd

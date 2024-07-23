@@ -30,10 +30,10 @@ services:
     develop:
       watch:
         - path: ./backend/server
-          action: sync
+          action: rebuild
           target: /app/server
         - path: ./backend/accounts
-          action: sync
+          action: rebuild
           target: /app/accounts
 
   db:

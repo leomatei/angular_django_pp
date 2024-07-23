@@ -16,23 +16,31 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'email', 'password', 'role']
         extra_kwargs = {'password': {'write_only': True}}
 
+    def get_role(self, obj):
+        try:
+            return obj.userprofile.role.name if obj.userprofile and obj.userprofile.role else None
+        except UserProfile.DoesNotExist:
+            return None
+
     def create(self, validated_data):
-        role_data = validated_data.pop('userprofile')['role']
+        profile_data = validated_data.pop('userprofile', {})
+        role_data = profile_data.get('role')
         user = User.objects.create_user(**validated_data)
         UserProfile.objects.create(user=user, role=role_data)
         return user
 
     def update(self, instance, validated_data):
-        profile_data = validated_data.pop('userprofile', None)
-        if profile_data:
-            role = profile_data.get('role')
-            instance.userprofile.role = role
-            instance.userprofile.save()
+        profile_data = validated_data.pop('userprofile', {})
+        role_data = profile_data.get('role')
+
+        instance = super().update(instance, validated_data)
+
+        UserProfile.objects.update_or_create(user=instance, defaults={'role': role_data})
         return super().update(instance, validated_data)
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['role'] = instance.userprofile.role.id if instance.userprofile else None
+        representation['role'] = self.get_role(instance)
         return representation
     
 class ComplaintSerializer(serializers.ModelSerializer):
