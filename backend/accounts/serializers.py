@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Role, UserProfile, Complaint
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -39,4 +40,15 @@ class ComplaintSerializer(serializers.ModelSerializer):
         model = Complaint
         fields = '__all__'
 
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        try:
+            user_profile = user.userprofile
+            token['role'] = user_profile.role.name 
+        except User.DoesNotExist:
+            token['role'] = None  
+
+        return token
     

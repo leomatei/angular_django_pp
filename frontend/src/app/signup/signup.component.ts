@@ -36,6 +36,13 @@ export class SignupComponent implements OnInit {
     } else {
       this.passwordMismatchError = '';
     }
-    console.log(email, username, password, confirmPassword);
+    this.authService.signup(username, password, email).subscribe(
+      (response) => {
+        console.log('Signup successful', response);
+      },
+      (error) => {
+        console.error('Signup failed', error);
+      }
+    );
   }
 }

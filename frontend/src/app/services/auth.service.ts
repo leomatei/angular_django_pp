@@ -38,4 +38,11 @@ export class AuthService {
   isLoggedIn(): boolean {
     return this.isAuthenticated;
   }
+  signup(username: string, password: string, email: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/signup/`, {
+      username,
+      password,
+      email,
+    });
+  }
 }

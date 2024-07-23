@@ -19,11 +19,12 @@ services:
     build:
       context: ./backend
     command: >
-      sh -c "python manage.py migrate && gunicorn server.wsgi:application --bind 0.0.0.0:8000"
+      sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn server.wsgi:application --bind 0.0.0.0:8000"
     ports:
       - '8000:8000'
     environment:
       - PYTHONUNBUFFERED=1
+      - DEBUG=True
     depends_on:
       - db
     develop:
@@ -31,9 +32,9 @@ services:
         - path: ./backend/server
           action: sync
           target: /app/server
-        - path: ./backend/account
+        - path: ./backend/accounts
           action: sync
-          target: /app/account
+          target: /app/accounts
 
   db:
     image: postgres:13
@@ -43,6 +44,8 @@ services:
       POSTGRES_PASSWORD: mypassword
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
 
 volumes:
   postgres_data:
