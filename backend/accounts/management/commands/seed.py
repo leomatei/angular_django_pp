@@ -42,15 +42,16 @@ class Command(BaseCommand):
 
     def _create_complaints(self):
         try:
-            user_profile1 = UserProfile.objects.get(user__username='john_doe')
-        except UserProfile.DoesNotExist:
-            self.stdout.write('UserProfile for "john_doe" does not exist.')
+            user1 = User.objects.get(username='john_doe')
+        except User.DoesNotExist:
+            self.stdout.write('User "john_doe" does not exist.')
             return
 
         complaints = [
-            {'title': 'Delivery Complaint', 'author': 'Jane Doe', 'description': 'Content of my package was broken', 'asignee': user_profile1},
-            {'title': 'Payment Issue', 'author': 'John Doe', 'description': 'Payment was deducted twice', 'asignee': user_profile1}
+            {'title': 'Delivery Complaint', 'author': 'Jane Doe', 'description': 'Content of my package was broken', 'asignee': user1},
+            {'title': 'Payment Issue', 'author': 'John Doe', 'description': 'Payment was deducted twice', 'asignee': user1}
         ]
+
         for complaint_data in complaints:
             complaint, created = Complaint.objects.get_or_create(
                 title=complaint_data['title'],
