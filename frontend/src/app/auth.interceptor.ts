@@ -23,10 +23,8 @@ export class AuthInterceptor implements HttpInterceptor {
     );
 
     if (shouldExcludeToken) {
-      // If the URL is in the excludedUrls array, pass the request without the JWT
       return next.handle(req);
     } else {
-      // Otherwise, attach the JWT to the request
       const accessToken = this.authService.getAccessToken();
       if (accessToken) {
         const cloned = req.clone({

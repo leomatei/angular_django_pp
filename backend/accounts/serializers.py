@@ -9,7 +9,7 @@ class RoleSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 class UserSerializer(serializers.ModelSerializer):
-    role = serializers.PrimaryKeyRelatedField(queryset=Role.objects.all(), source='userprofile.role')
+    role = serializers.PrimaryKeyRelatedField(queryset=Role.objects.all(), required=False)
 
     class Meta:
         model = User
@@ -23,20 +23,23 @@ class UserSerializer(serializers.ModelSerializer):
             return None
 
     def create(self, validated_data):
-        profile_data = validated_data.pop('userprofile', {})
-        role_data = profile_data.get('role')
+        role_data = validated_data.pop('role', None)
         user = User.objects.create_user(**validated_data)
-        UserProfile.objects.create(user=user, role=role_data)
+        if role_data is not None:
+            UserProfile.objects.create(user=user, role=role_data)
         return user
 
     def update(self, instance, validated_data):
-        profile_data = validated_data.pop('userprofile', {})
-        role_data = profile_data.get('role')
+        role_data = validated_data.pop('role', None)
 
         instance = super().update(instance, validated_data)
 
-        UserProfile.objects.update_or_create(user=instance, defaults={'role': role_data})
-        return super().update(instance, validated_data)
+        if role_data is not None:
+            UserProfile.objects.update_or_create(user=instance, defaults={'role': role_data})
+        else:
+            UserProfile.objects.update_or_create(user=instance, defaults={'role': None})
+
+        return instance
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
@@ -55,8 +58,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         try:
             user_profile = user.userprofile
             token['role'] = user_profile.role.name 
-        except User.DoesNotExist:
+        except UserProfile.DoesNotExist:
             token['role'] = None  
 
         return token
-    
