@@ -5,50 +5,54 @@
   <div class="spinner"></div>
 </div>
 
-<div *ngIf="!complaintsLoading">
-  <h2>Complaints</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let complaint of complaints">
-        <td>{{ complaint.id }}</td>
-        <td>{{ complaint.title }}</td>
-        <td>{{ complaint.description }}</td>
-        <td>{{ complaint.status }}</td>
-      </tr>
-    </tbody>
-  </table>
+<div *ngIf="complaints.length">
+  <div *ngIf="!complaintsLoading">
+    <h2>Complaints</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let complaint of complaints">
+          <td>{{ complaint.id }}</td>
+          <td>{{ complaint.title }}</td>
+          <td>{{ complaint.description }}</td>
+          <td>{{ complaint.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <div *ngIf="usersLoading" class="spinner-container">
   <div class="spinner"></div>
 </div>
 
-<div *ngIf="!usersLoading">
-  <h2>Users</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>username</th>
-        <th>role</th>
-        <th>email</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let users of users">
-        <td>{{ users.id }}</td>
-        <td>{{ users.username }}</td>
-        <td>{{ users.role }}</td>
-        <td>{{ users.email }}</td>
-      </tr>
-    </tbody>
-  </table>
+<div *ngIf="users.length">
+  <div *ngIf="!usersLoading">
+    <h2>Users</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>username</th>
+          <th>role</th>
+          <th>email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let users of users">
+          <td>{{ users.id }}</td>
+          <td>{{ users.username }}</td>
+          <td>{{ users.role }}</td>
+          <td>{{ users.email }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

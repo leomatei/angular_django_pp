@@ -1,3 +1,4 @@
+import { jwtDecode } from 'jwt-decode';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -21,17 +22,7 @@ export class DashboardComponent implements OnInit {
     private usersService: UsersService
   ) {}
 
-  ngOnInit(): void {
-    this.complaintService.getComplaints().subscribe(
-      (data) => {
-        this.complaints = data;
-        this.complaintsLoading = false;
-      },
-      (error) => {
-        console.error('Error fetching complaints', error);
-        this.complaintsLoading = false;
-      }
-    );
+  fetchUsers(): any {
     this.usersService.getUsers().subscribe(
       (data) => {
         this.users = data;
@@ -42,6 +33,41 @@ export class DashboardComponent implements OnInit {
         this.usersLoading = false;
       }
     );
+  }
+
+  fetchComplaints(): any {
+    this.complaintService.getComplaints().subscribe(
+      (data) => {
+        this.complaints = data;
+        this.complaintsLoading = false;
+      },
+      (error) => {
+        console.error('Error fetching complaints', error);
+        this.complaintsLoading = false;
+      }
+    );
+  }
+
+  ngOnInit(): void {
+    const token = this.authService.getAccessToken();
+    if (!token) {
+      this.router.navigate(['/login']);
+      return;
+    }
+    const decodedToken: any = jwtDecode(token);
+    switch (decodedToken.role) {
+      case 'admin':
+        this.fetchUsers();
+        this.fetchComplaints();
+        break;
+      case 'support':
+        this.fetchComplaints();
+        break;
+      default:
+        console.log('TBD');
+    }
+    this.usersLoading = false;
+    this.complaintsLoading = false;
   }
 
   logout() {
