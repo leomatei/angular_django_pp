@@ -48,6 +48,28 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  assignUser(complaintId: number, event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const userId = target.value;
+    if (userId) {
+      this.complaintService.assignComplaint(complaintId, +userId).subscribe(
+        (response) => {
+          console.log('Complaint successfully assigned', response);
+          // this.fetchComplaints(); // Refresh the complaints list to show the updated data
+        },
+        (error) => {
+          console.error('Error assigning complaint', error);
+        }
+      );
+    }
+  }
+
+  getAssigneeName(assigneeId: number): string | null {
+    console.log(assigneeId, this.users);
+    const user = this.users.find((u) => u.id === assigneeId);
+    return user ? user.username : null;
+  }
+
   ngOnInit(): void {
     const token = this.authService.getAccessToken();
     if (!token) {

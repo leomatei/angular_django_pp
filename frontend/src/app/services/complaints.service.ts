@@ -27,4 +27,15 @@ export class ComplaintsService {
       })
     );
   }
+  assignComplaint(complaintId: number, assigneeId: number): Observable<any> {
+    return this.http
+      .patch<any>(`${this.baseUrl}/complaints/${complaintId}/`, {
+        asignee: assigneeId,
+      })
+      .pipe(
+        tap((res) => {
+          console.log('Complaint assigned:', res);
+        })
+      );
+  }
 }

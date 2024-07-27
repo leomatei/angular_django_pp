@@ -15,6 +15,7 @@
           <th>Title</th>
           <th>Description</th>
           <th>Status</th>
+          <th>Assigned To</th>
         </tr>
       </thead>
       <tbody>
@@ -23,6 +24,19 @@
           <td>{{ complaint.title }}</td>
           <td>{{ complaint.description }}</td>
           <td>{{ complaint.status }}</td>
+          <td>
+            <select
+              [(ngModel)]="complaint.asignee"
+              (change)="assignUser(complaint.id, $event)"
+            >
+              <option value="">
+                {{ getAssigneeName(complaint.assignee) || "Select User" }}
+              </option>
+              <option *ngFor="let user of users" [value]="user.id">
+                {{ user.username }}
+              </option>
+            </select>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -40,17 +54,17 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>username</th>
-          <th>role</th>
-          <th>email</th>
+          <th>Username</th>
+          <th>Role</th>
+          <th>Email</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let users of users">
-          <td>{{ users.id }}</td>
-          <td>{{ users.username }}</td>
-          <td>{{ users.role }}</td>
-          <td>{{ users.email }}</td>
+        <tr *ngFor="let user of users">
+          <td>{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.role }}</td>
+          <td>{{ user.email }}</td>
         </tr>
       </tbody>
     </table>
