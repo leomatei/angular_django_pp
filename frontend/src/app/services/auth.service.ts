@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,21 @@ export class AuthService {
   private baseUrl = 'http://127.0.0.1:8000/api';
   private isAuthenticated = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.checkToken();
+  }
+
+  private checkToken(): void {
+    const token = this.getAccessToken();
+    if (!token) {
+      return;
+    }
+    const decodedToken: any = jwtDecode(token);
+    if (new Date(decodedToken.exp * 1000).getTime() < new Date().getTime()) {
+      return;
+    }
+    this.isAuthenticated = true;
+  }
 
   login(username: string, password: string): Observable<any> {
     return this.http
