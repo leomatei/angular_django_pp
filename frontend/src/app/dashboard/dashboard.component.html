@@ -47,7 +47,7 @@
   <div class="spinner"></div>
 </div>
 
-<div *ngIf="users.length">
+<div *ngIf="userRole === 'admin'">
   <div *ngIf="!usersLoading">
     <h2>Users</h2>
     <table>
@@ -63,7 +63,16 @@
         <tr *ngFor="let user of users">
           <td>{{ user.id }}</td>
           <td>{{ user.username }}</td>
-          <td>{{ user.role }}</td>
+          <td>
+            <select
+              [(ngModel)]="user.role"
+              (change)="changeUserRole(user.id, $event)"
+            >
+              <option value="admin">Admin</option>
+              <option value="user">User</option>
+              <option value="support">Support</option>
+            </select>
+          </td>
           <td>{{ user.email }}</td>
         </tr>
       </tbody>

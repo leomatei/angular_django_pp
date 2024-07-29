@@ -45,4 +45,11 @@ export class AuthService {
       email,
     });
   }
+  getRoles(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/roles/`).pipe(
+      tap((res) => {
+        console.log('Roles fetched:', res);
+      })
+    );
+  }
 }

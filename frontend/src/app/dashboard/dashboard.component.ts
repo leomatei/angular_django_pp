@@ -13,14 +13,27 @@ import { UsersService } from '../services/users.service';
 export class DashboardComponent implements OnInit {
   complaints: any[] = [];
   users: any[] = [];
+  roles: any[] = [];
   complaintsLoading: boolean = true;
   usersLoading: boolean = true;
+  userRole: string = '';
   constructor(
     private authService: AuthService,
     private router: Router,
     private complaintService: ComplaintsService,
     private usersService: UsersService
   ) {}
+
+  fetchRoles(): any {
+    this.authService.getRoles().subscribe(
+      (data) => {
+        this.roles = data;
+      },
+      (error) => {
+        console.log('error fetching roles', error);
+      }
+    );
+  }
 
   fetchUsers(): any {
     this.usersService.getUsers().subscribe(
@@ -63,6 +76,22 @@ export class DashboardComponent implements OnInit {
       );
     }
   }
+  changeUserRole(userId: number, event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const role = target.value;
+    const roleId = this.roles.find((item) => item.name === role).id;
+    console.log(role, roleId);
+    if (role) {
+      this.usersService.updateUserRole(userId, roleId).subscribe(
+        (response) => {
+          console.log('User role successfully updated', response);
+        },
+        (error) => {
+          console.error('Error updating user role', error);
+        }
+      );
+    }
+  }
 
   getAssigneeName(assigneeId: number): string | null {
     console.log(assigneeId, this.users);
@@ -77,13 +106,16 @@ export class DashboardComponent implements OnInit {
       return;
     }
     const decodedToken: any = jwtDecode(token);
-    switch (decodedToken.role) {
+    this.userRole = decodedToken.role;
+    switch (this.userRole) {
       case 'admin':
+        this.fetchRoles();
         this.fetchUsers();
         this.fetchComplaints();
         break;
       case 'support':
         this.fetchComplaints();
+        this.fetchUsers();
         break;
       default:
         console.log('TBD');

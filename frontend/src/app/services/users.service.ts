@@ -18,4 +18,13 @@ export class UsersService {
       })
     );
   }
+  updateUserRole(userId: number, role: number): Observable<any> {
+    return this.http
+      .patch<any>(`${this.baseUrl}/users/${userId}/`, { role })
+      .pipe(
+        tap((res) => {
+          console.log('User role updated:', res);
+        })
+      );
+  }
 }
